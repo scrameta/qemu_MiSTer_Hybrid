@@ -146,6 +146,14 @@ static void mister_minimig_init(MachineState *machine)
 
     int rom_bytes = 1*1024*1024;
     void * rom_addr_orig = mmap(NULL,rom_bytes,(PROT_READ|PROT_WRITE),MAP_SHARED,fdcached,hpsbridgeaddr+0xf00000);
+
+    unsigned int specialoffset = 0x1000000;
+    void * special = mmap(NULL,16,(PROT_READ|PROT_WRITE),MAP_SHARED,fduncached,hpsbridgeaddr+specialoffset); //cached?
+    unsigned int volatile * specialx = (unsigned int volatile *)special;
+    fprintf(stderr,"Writing to vbr and cacr: %p",specialx);
+    specialx[2] = 0; //vbr
+    specialx[3] = 1; //cacr
+
     void * rom_addr_fast = malloc(rom_bytes);
     for (int i=0;i!=rom_bytes;i+=4)
     {
