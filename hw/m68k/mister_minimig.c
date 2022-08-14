@@ -139,7 +139,7 @@ static void mister_minimig_init(MachineState *machine)
     int rtgcard_bytes = 8*1024*1024;
     //int z3fastram_bytes = 8*1024*1024;
     unsigned int rtg_physical = 0x27000000; // physical ddr address, shared with f2h bridge
-    void * rtgcard_addr = mmap(NULL,rtgcard_bytes,(PROT_READ|PROT_WRITE),MAP_SHARED,fduncached,rtg_physical);
+    void * rtgcard_addr = mmap(NULL,rtgcard_bytes,(PROT_READ|PROT_WRITE),MAP_SHARED,fdcached,rtg_physical);
 
     int hardware_bytes =  13*1024*1024;
     void * hardware_addr = mmap(NULL,hardware_bytes,(PROT_READ|PROT_WRITE),MAP_SHARED,fduncached,hpsbridgeaddr + 0x200000);
